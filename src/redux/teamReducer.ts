@@ -1,16 +1,62 @@
-const INITIAL_STATE = {
-    count: 0,
+import {v4} from "uuid";
+
+const INITIAL_STATE: TeamReducerType = {
+    teams: [],
+    matches: []
 };
 
-const reducer = (state = INITIAL_STATE, action: any) => {
+export const teamReducer = (state = INITIAL_STATE, action: any) => {
     switch (action.type) {
-        case 'INCREMENT':
+        case 'teamReducer/addTeam':
+            const newTeam: Column[] = [
+                {
+                    column: 'Place',
+                    value: '',
+                    id: v4(),
+                },
+                {
+                    column: 'Team',
+                    value: action.payload as string,
+                    id: v4(),
+                },
+                {
+                    column: 'Played',
+                    value: '0',
+                    id: v4(),
+                },
+                {
+                    column: 'Win',
+                    value: '0',
+                    id: v4(),
+                },
+                {
+                    column: 'Draw',
+                    value: '0',
+                    id: v4(),
+                },
+                {
+                    column: 'Lost',
+                    value: '0',
+                    id: v4(),
+                },
+                {
+                    column: 'Points',
+                    value: '0',
+                    id: v4(),
+                },
+            ]
             return {
-                ...state, count: state.count + 1,
+                ...state,
+                teams: [...state.teams, newTeam]
             };
-        case 'DECREMENT':
+        case 'teamReducer/createMatches':
+            const newTeamName = action.payload;
+            if (state.teams.length > 1) {
+                state.teams.map(el => el.map(ell => ell.value))
+            }
             return {
-                ...state, count: state.count - 1,
+                ...state,
+                matches: []
             };
         default:
             return state;
@@ -19,4 +65,13 @@ const reducer = (state = INITIAL_STATE, action: any) => {
 
 };
 
-export default reducer;
+export type TeamReducerType = {
+    teams: Column[][],
+    matches: []
+}
+
+export type Column = {
+    column: string;
+    value: string;
+    id: string;
+};

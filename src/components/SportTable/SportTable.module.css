@@ -1,0 +1,35 @@
+.sport_table_container {
+    width: 70%;
+    height: 100%;
+    border: #2469ff 1px solid;
+}
+
+.sport_table_container table {
+    width: 100%;
+}
+
+.sport_table_header thead tr:first-child {
+    background-color: darkgray;
+}
+
+.sport_table tr th {
+    border: #282c34 1px solid;
+    padding: 12px;
+}
+
+.head_container {
+    background-color: #e0e0e0;
+    height: 40px;
+}
+
+.cell_container {
+    height: 40px;
+}
+
+table {
+    border-spacing: 0;
+}
+
+.header_cell {
+    border: 1px #d2d2d2 solid;
+}
