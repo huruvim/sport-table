@@ -3,3 +3,37 @@
     width: 30%;
     border: #61dafb 1px solid;
 }
+
+.result_input {
+    width: 28px;
+    height: 28px;
+    margin: 0 4px;
+    font-size: 20px;
+}
+
+.single_match {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%
+}
+
+.single_match_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%
+}
+
+.match_manu {
+    width: 140px;
+    /*border: coral 1px solid;*/
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.match_manu div:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}

@@ -49,15 +49,41 @@ export const teamReducer = (state = INITIAL_STATE, action: any) => {
                 ...state,
                 teams: [...state.teams, newTeam]
             };
-        case 'teamReducer/createMatches':
+        case 'teamReducer/createMatche':
             const newTeamName = action.payload;
             if (state.teams.length > 1) {
-                state.teams.map(el => el.map(ell => ell.value))
+                const matches = state.teams.reduce((acc: Matches[], val): Matches[] => {
+                    const superName = val.find(col => col.column === "Team")?.value
+                    if (!!superName && superName !== newTeamName) {
+                        return [...acc, {
+                            left_super: newTeamName,
+                            right_super: superName,
+                            goals_left_super: null,
+                            goals_right_super: null,
+                            result: null,
+                            id: v4()
+                        }]
+                    }
+                    return acc
+                }, []);
+
+                return {
+                    ...state,
+                    matches: [...state.matches, ...matches]
+                };
             }
             return {
                 ...state,
                 matches: []
             };
+        case 'teamReducer/updateMatch':
+            const id = action.payload.id;
+            const results = action.payload.results;
+            debugger;
+            return {
+                ...state,
+
+            }
         default:
             return state;
 
@@ -67,7 +93,7 @@ export const teamReducer = (state = INITIAL_STATE, action: any) => {
 
 export type TeamReducerType = {
     teams: Column[][],
-    matches: []
+    matches: Matches[]
 }
 
 export type Column = {
@@ -75,3 +101,12 @@ export type Column = {
     value: string;
     id: string;
 };
+
+export type Matches = {
+    left_super: string;
+    right_super: string;
+    goals_left_super: string | null;
+    goals_right_super: string | null;
+    result: string | null;
+    id: string;
+}

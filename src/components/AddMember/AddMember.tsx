@@ -7,6 +7,7 @@ const AddMember = () => {
     const dispatch = useDispatch();
     const addTeam = () => {
         dispatch({ type: 'teamReducer/addTeam', payload: value })
+        dispatch({ type: 'teamReducer/createMatche', payload: value })
         setValue('');
     }
     return (
