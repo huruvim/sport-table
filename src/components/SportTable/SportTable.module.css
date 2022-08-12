@@ -1,11 +1,11 @@
 .sport_table_container {
     width: 70%;
-    height: 100%;
-    border: #2469ff 1px solid;
+    max-height: calc(100% - 80px - 16px);
 }
 
 .sport_table_container table {
     width: 100%;
+    border: #2469ff 1px solid;
 }
 
 .sport_table_header thead tr:first-child {

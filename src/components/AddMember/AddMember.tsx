@@ -7,12 +7,20 @@ const AddMember = () => {
     const dispatch = useDispatch();
     const addTeam = () => {
         dispatch({ type: 'teamReducer/addTeam', payload: value })
-        dispatch({ type: 'teamReducer/createMatche', payload: value })
+        dispatch({ type: 'teamReducer/createMatch', payload: value })
         setValue('');
     }
+
+    const onEnterClick = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' && value.length > 0) {
+            addTeam();
+        }
+    }
+
+
     return (
         <div className={s.add_member_container}>
-            <div className={s.add_member}>
+            <div className={s.add_member} onKeyDown={onEnterClick}>
                 <input type="text" placeholder="New team" value={value} onChange={e => setValue(e.target.value)}/>
                 <button disabled={value.length === 0} onClick={addTeam}>Add</button>
             </div>

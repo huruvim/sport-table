@@ -1,12 +1,12 @@
 .competition {
     height: 100%;
     max-width: 2000px;
-    border: #61dafb 1px solid;
+    /*border: #61dafb 1px solid;*/
     margin: 0 40px;
 }
 
 .main_content {
-    height: calc(100% - 80px - 16px);
+    /*max-height: calc(100% - 80px - 16px);*/
     display: flex;
     margin-bottom: 40px;
 }

@@ -9,8 +9,11 @@ const Results = () => {
     const {matches} = useSelector<RootState, TeamReducerType>((state: RootState) => state.team)
     const dispatch = useDispatch()
 
-    const onSaveResult = (matchId: string, results: any) => {
-        dispatch({type: 'teamReducer/updateMatch', payload: {id: matchId, results}})
+    const onSaveResult = (matchId: string, results: any, wasPlayed: boolean) => {
+        dispatch({
+            type: `teamReducer/${wasPlayed ? 'updateMatchScores' : 'updateMatch'}`,
+            payload: {id: matchId, results}
+        })
     }
 
     return (
@@ -21,7 +24,9 @@ const Results = () => {
                     goals_right_super={match.goals_right_super}
                     left_super={match.left_super}
                     right_super={match.right_super}
-                    handleSaveResult={(results) => onSaveResult(match.id, results)}
+                    handleSaveResult={(results) =>
+                        onSaveResult(match.id, results, match.goals_left_super !== null)
+                    }
                 />
             ))}
         </div>
