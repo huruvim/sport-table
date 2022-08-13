@@ -12,30 +12,44 @@
 }
 
 .single_match {
-    width: 70%;
+    width: 90%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr;
 }
 
 .single_match > span:first-child {
     display: flex;
     justify-self: flex-end;
+    /*margin-right: 4px;*/
 }
 
 .single_match > span:last-child {
     display: flex;
     justify-self: flex-start;
+    /*margin-left: 4px;*/
+}
+
+.single_match > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.single_match > input {
+    margin: 0 4px;
 }
 
 .single_match_container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 100%
+    width: 100%;
+    font-size: 24px;
+    margin-bottom: 8px;
 }
 
 .match_manu {
-    width: 140px;
+    width: 60px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;

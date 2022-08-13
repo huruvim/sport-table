@@ -41,30 +41,28 @@ const Match: FC<MatchProps> = ({goals_right_super, goals_left_super, right_super
     }
 
     const onInputType = (value: string, isLeftOne: boolean) => {
-        if (isNumber.test(value)) {
+        if (isNumber.test(value) && value.length < 4) {
             isLeftOne ? setLeftResult(value) : setRightResult(value)
         }
     }
     const handleMenu = () => setEditMenu(prev => !prev)
-    console.log("hasNoResult", hasNoResult)
-    console.log("editMenu", editMenu)
-    console.log("leftResult", leftResult)
-    console.log("rightResult", rightResult)
     return (
         <div className={s.single_match_container}>
             <div className={s.single_match}>
                 <span>{left_super}</span>
                 <div>
-                    {!hasNoResult || (!hasNoResult && !editMenu && leftResult && rightResult) ? (
-                        <span>{leftResult}</span>
-                    ) : (
+                    {!editMenu && !hasNoResult && (
+                        <span className={s.teamName}>{leftResult}</span>
+                    )}
+                    {(editMenu || hasNoResult) && (
                         <input className={s.result_input} onChange={e => onInputType(e.target.value, true)}
-                               value={leftResult}/>
+                                value={leftResult}/>
                     )}
                     <span>:</span>
-                        {!hasNoResult || (!hasNoResult && !editMenu && leftResult && rightResult) ? (
-                        <span>{rightResult}</span>
-                    ) : (
+                    {!editMenu && !hasNoResult && (
+                        <span className={s.teamName}>{rightResult}</span>
+                    )}
+                    {(editMenu || hasNoResult) && (
                         <input className={s.result_input} onChange={e => onInputType(e.target.value, false)}
                                value={rightResult}/>
                     )}

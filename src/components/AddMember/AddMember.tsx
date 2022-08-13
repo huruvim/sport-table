@@ -12,17 +12,18 @@ const AddMember = () => {
     }
 
     const onEnterClick = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'Enter' && value.length > 0) {
+        console.log(value.length)
+        if (e.key === 'Enter' && value.length > 0 && value.length <= 64) {
             addTeam();
         }
     }
 
-
     return (
         <div className={s.add_member_container}>
             <div className={s.add_member} onKeyDown={onEnterClick}>
+                {value.length > 64 && <div className={s.errorMessage}>team name is too long</div>}
                 <input type="text" placeholder="New team" value={value} onChange={e => setValue(e.target.value)}/>
-                <button disabled={value.length === 0} onClick={addTeam}>Add</button>
+                <button disabled={value.length === 0 || value.length > 64} onClick={addTeam}>Add</button>
             </div>
         </div>
     )

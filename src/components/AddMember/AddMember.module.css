@@ -7,6 +7,7 @@
 }
 
 .add_member input {
+    margin-top: 12px;
     margin-right: 8px;
     height: 30px;
     padding: 12px;
@@ -19,4 +20,11 @@
 
 .add_member button:hover {
     cursor: pointer;
+}
+
+.errorMessage {
+    color: red;
+    display: flex;
+    font-size: 14px;
+    padding-bottom: 2px;
 }
