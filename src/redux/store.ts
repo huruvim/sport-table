@@ -8,7 +8,6 @@ const store = createStore(rootReducer, persistedState);
 
 store.subscribe(() => {
     const state = store.getState()
-    console.log(state)
     setLocalStorageState(state);
 })
 
