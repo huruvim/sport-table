@@ -3,10 +3,11 @@ import s from './SportTable.module.css'
 import {headers} from "../../redux/mock";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {TeamReducerType} from "../../redux/teamReducer";
+import {TeamType} from "../../redux/teamReducer";
+import {getTeams} from "../../redux/selectors";
 
 const SportTable = () => {
-    const {teams} = useSelector<RootState, TeamReducerType>((state: RootState)=> state.team)
+    const teams = useSelector<RootState, TeamType>(getTeams)
     const sportTeams = useMemo(() => Object.values(teams).sort((a, b) => {
         return +b[6].value - +a[6].value
     }), [teams])
@@ -25,13 +26,8 @@ const SportTable = () => {
                     return (
                         <tr className={s.cell_container}>
                             {data.map((el) => {
-                                if (el.column === "Place") {
-                                    return (
-                                        <td className={s.header_cell}>{index + 1}</td>
-                                    )
-                                }
                                 return (
-                                    <td className={s.header_cell}>{el.value}</td>
+                                    <td className={s.header_cell}>{el.column === "Place" ? index + 1 : el.value}</td>
                                 )
                             })}
                         </tr>

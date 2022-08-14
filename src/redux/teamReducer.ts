@@ -1,11 +1,12 @@
 import {v4} from "uuid";
+import {ActionTypes} from "./actions";
 
-const INITIAL_STATE: TeamReducerType = {
+export const initState: TeamReducerType = {
     teams: {},
     matches: []
 };
 
-export const teamReducer = (state = INITIAL_STATE, action: any): TeamReducerType => {
+export const teamReducer = (state = initState, action: ActionTypes): TeamReducerType => {
     switch (action.type) {
         case 'teamReducer/addTeam':
             const newTeam: Column[] = [
@@ -60,7 +61,6 @@ export const teamReducer = (state = INITIAL_STATE, action: any): TeamReducerType
                             right_super: superName,
                             goals_left_super: null,
                             goals_right_super: null,
-                            result: null,
                             id: v4()
                         }]
                     }
@@ -107,12 +107,18 @@ export const teamReducer = (state = INITIAL_STATE, action: any): TeamReducerType
                     ...state.teams,
                     [first]: state.teams[first]
                         .map((col) => {
-                            const currentResult = +action.payload.results.goals_left_super - +action.payload.results.goals_right_super
+                            let currentResult = 0;
+                            if (action.payload.results.goals_left_super && action.payload.results.goals_right_super) {
+                                currentResult = +action.payload.results.goals_left_super - +action.payload.results.goals_right_super
+                            }
                             return mutateCells(col, currentResult)
                         }),
                     [second]: state.teams[second]
                         .map((col) => {
-                            const currentResult = +action.payload.results.goals_right_super - +action.payload.results.goals_left_super
+                            let currentResult = 0;
+                            if (action.payload.results.goals_right_super && action.payload.results.goals_left_super) {
+                                currentResult = +action.payload.results.goals_right_super - +action.payload.results.goals_left_super
+                            }
                             return mutateCells(col, currentResult)
                         }),
                 }
@@ -205,15 +211,21 @@ export const teamReducer = (state = INITIAL_STATE, action: any): TeamReducerType
                             if (previousMatchScores?.goals_left_super && previousMatchScores?.goals_right_super) {
                                 prevResult = +previousMatchScores.goals_left_super - +previousMatchScores.goals_right_super
                             }
-                            const currentResult = +action.payload.results.goals_left_super - +action.payload.results.goals_right_super
-                            return mutateCells(col, prevResult, currentResult)
+                            let currentResult = 0;
+                            if (action.payload.results.goals_left_super && action.payload.results.goals_right_super) {
+                                currentResult = +action.payload.results.goals_left_super - +action.payload.results.goals_right_super
+                            }
+                            return prevResult === currentResult ? col : mutateCells(col, prevResult, currentResult)
                         }),
                     [second]: state.teams[second]
                         .map((col) => {
                             if (previousMatchScores?.goals_left_super && previousMatchScores?.goals_right_super) {
                                 prevResult = +previousMatchScores.goals_right_super - +previousMatchScores.goals_left_super
                             }
-                            const currentResult = +action.payload.results.goals_right_super - +action.payload.results.goals_left_super
+                            let currentResult = 0;
+                            if (action.payload.results.goals_right_super && action.payload.results.goals_left_super) {
+                                currentResult = +action.payload.results.goals_right_super - +action.payload.results.goals_left_super
+                            }
                             return prevResult === currentResult ? col : mutateCells(col, prevResult, currentResult)
                         }),
                 }
@@ -246,6 +258,5 @@ export type Matches = {
     right_super: string;
     goals_left_super: string | null;
     goals_right_super: string | null;
-    result: string | null;
     id: string;
 }

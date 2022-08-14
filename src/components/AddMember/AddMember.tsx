@@ -1,18 +1,18 @@
 import React, {useState} from "react";
 import s from './AddMember.module.css'
 import {useDispatch} from "react-redux";
+import {addTeamAction, createMatchAction} from "../../redux/actions";
 
 const AddMember = () => {
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const addTeam = () => {
-        dispatch({ type: 'teamReducer/addTeam', payload: value })
-        dispatch({ type: 'teamReducer/createMatch', payload: value })
+        dispatch(addTeamAction(value))
+        dispatch(createMatchAction(value))
         setValue('');
     }
 
     const onEnterClick = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        console.log(value.length)
         if (e.key === 'Enter' && value.length > 0 && value.length <= 64) {
             addTeam();
         }

@@ -3,11 +3,12 @@ import rootReducer from './rootReducer';
 import {getLocalStorageState, setLocalStorageState} from "../utils/localStorage";
 
 const persistedState: RootState = getLocalStorageState();
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, persistedState);
 
 
 store.subscribe(() => {
     const state = store.getState()
+    console.log(state)
     setLocalStorageState(state);
 })
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Competition from "./components/Competition/Competition";
+import {Competition} from "./components/Competition";
 
 const App = () => {
     return (
